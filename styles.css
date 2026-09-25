@@ -187,6 +187,12 @@ main {
   box-shadow: 0 12px 30px rgba(244, 179, 39, .16);
 }
 
+.button-secondary {
+  border-color: rgba(120, 169, 255, .32);
+  color: #cfe0ff;
+  background: linear-gradient(180deg, rgba(81, 126, 217, .14), rgba(31, 62, 124, .10));
+}
+
 .media-section {
   scroll-margin-top: 88px;
   padding: 0 0 clamp(4rem, 7vw, 6rem);
