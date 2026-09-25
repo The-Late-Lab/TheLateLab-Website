@@ -97,11 +97,6 @@ nav a:focus-visible {
   background: rgba(255, 255, 255, .06);
 }
 
-nav .nav-play {
-  color: #1c1000;
-  background: linear-gradient(180deg, var(--gold-bright), var(--gold));
-}
-
 main {
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
@@ -190,12 +185,6 @@ main {
   color: #1c1000;
   background: linear-gradient(180deg, var(--gold-bright), var(--gold));
   box-shadow: 0 12px 30px rgba(244, 179, 39, .16);
-}
-
-.button-secondary {
-  border-color: rgba(120, 169, 255, .32);
-  color: #cfe0ff;
-  background: linear-gradient(180deg, rgba(81, 126, 217, .14), rgba(31, 62, 124, .10));
 }
 
 .media-section {
@@ -312,17 +301,13 @@ main {
   padding-bottom: 5rem;
 }
 
-.about-card,
-.play-card {
+.about-card {
   scroll-margin-top: 88px;
   border: 1px solid var(--line);
   border-radius: 1.25rem;
   background:
     linear-gradient(180deg, rgba(52, 28, 9, .64), rgba(24, 14, 8, .92));
   box-shadow: var(--shadow);
-}
-
-.about-card {
   padding: clamp(1.45rem, 4vw, 2.5rem);
 }
 
@@ -351,7 +336,7 @@ h2 {
   line-height: 1.2;
 }
 
-.about-card > p:not(.eyebrow):not(.hint) {
+.about-card > p:not(.eyebrow) {
   max-width: 64ch;
   color: #d8c8b1;
 }
@@ -385,57 +370,6 @@ h2 {
 .feature strong { font-size: .98rem; }
 .feature span { color: var(--muted); font-size: .9rem; }
 
-.hint {
-  margin: 1.5rem 0 0;
-  padding: .85rem 1rem;
-  border-left: 3px solid var(--blue);
-  color: #c8d9f6;
-  background: rgba(49, 95, 188, .10);
-}
-
-.play-card {
-  order: -1;
-  padding: 1rem;
-}
-
-.play-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .25rem .25rem .9rem;
-}
-
-.play-heading a {
-  color: #bfd3ff;
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.game-shell {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: .9rem;
-  background: #333;
-  box-shadow: 0 18px 45px rgba(0,0,0,.42);
-}
-
-.game-shell iframe {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border: 0;
-}
-
-.embed-note {
-  margin: .7rem .25rem .15rem;
-  color: #9f907c;
-  font-size: .82rem;
-  text-align: center;
-}
 
 footer {
   display: flex;

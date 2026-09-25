@@ -2,7 +2,7 @@
 
 Static GitHub Pages website for **Stealthmate — A Chess Puzzle**.
 
-The site intentionally has no build step or JavaScript framework. It is plain HTML/CSS, uses the supplied Stealthmate logo, and embeds the current itch.io browser build.
+The site intentionally has no build step or JavaScript framework. It is plain HTML/CSS, uses the supplied Stealthmate logo,.
 
 ## Repository contents
 
@@ -73,22 +73,6 @@ Use Hostinger's default TTL unless you have a reason to change it.
 GitHub also supports AAAA records for IPv6, but they are optional for this setup.
 
 DNS changes can take time to propagate.
-
-## itch.io embed
-
-The page currently embeds:
-
-```html
-<iframe
-  src="https://itch.io/embed-upload/18809896?color=333333"
-  title="Play Stealthmate"
-  allowfullscreen
-></iframe>
-```
-
-Direct fallback:
-
-`https://thelatelab.itch.io/stealthmate`
 
 ## Updating the public copy
 
