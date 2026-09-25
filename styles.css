@@ -227,24 +227,12 @@ main {
 .trailer-video {
   display: block;
   width: 100%;
-  max-height: 70vh;
   aspect-ratio: 16 / 9;
+  border: 0;
   border-radius: .85rem;
   background: #050403;
-  object-fit: contain;
 }
 
-.media-note {
-  margin: .72rem .25rem .05rem;
-  color: #9f907c;
-  font-size: .82rem;
-  text-align: center;
-}
-
-.media-note a {
-  color: #bfd3ff;
-  font-weight: 700;
-}
 
 .screenshot-grid {
   display: grid;
