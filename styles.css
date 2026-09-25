@@ -294,6 +294,7 @@ main {
 .screenshot-card img {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   transition: transform .2s ease;
