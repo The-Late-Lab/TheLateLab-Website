@@ -314,9 +314,8 @@ main {
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(1rem, 3vw, 2.4rem);
-  align-items: start;
   padding-bottom: 5rem;
 }
 
@@ -367,6 +366,7 @@ h2 {
 .feature-list {
   display: grid;
   gap: .72rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 1.5rem;
 }
 
@@ -401,8 +401,7 @@ h2 {
 }
 
 .play-card {
-  position: sticky;
-  top: 82px;
+  order: -1;
   padding: 1rem;
 }
 
@@ -422,9 +421,8 @@ h2 {
 
 .game-shell {
   position: relative;
-  width: min(100%, 380px);
-  margin: 0 auto;
-  aspect-ratio: 380 / 640;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: .9rem;
@@ -462,10 +460,7 @@ footer a { color: #b8c9ed; text-decoration: none; }
 
 @media (max-width: 860px) {
   .screenshot-grid { grid-auto-columns: calc((100% - .9rem) / 2); }
-  .content-grid { grid-template-columns: 1fr; }
-  .play-card { position: static; }
-  .about-card { order: 2; }
-  .play-card { order: 1; }
+  .feature-list { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 520px) {
