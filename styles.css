@@ -253,10 +253,18 @@ main {
 
 .screenshot-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 1.8rem) / 3);
   gap: .9rem;
   margin-top: 1.1rem;
+  padding-bottom: .6rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgba(244, 179, 39, .45) transparent;
 }
+
+.screenshot-grid > .screenshot-card { scroll-snap-align: start; }
 
 .screenshot-card {
   position: relative;
@@ -453,7 +461,7 @@ footer {
 footer a { color: #b8c9ed; text-decoration: none; }
 
 @media (max-width: 860px) {
-  .screenshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .screenshot-grid { grid-auto-columns: calc((100% - .9rem) / 2); }
   .content-grid { grid-template-columns: 1fr; }
   .play-card { position: static; }
   .about-card { order: 2; }
@@ -472,7 +480,7 @@ footer a { color: #b8c9ed; text-decoration: none; }
   .trailer-card { padding: .45rem; border-radius: 1rem; }
   .trailer-video { border-radius: .7rem; }
   .screenshot-grid {
-    grid-template-columns: 1fr;
+    grid-auto-columns: 85%;
     gap: .7rem;
   }
   .screenshot-card::after { opacity: 1; transform: none; }
