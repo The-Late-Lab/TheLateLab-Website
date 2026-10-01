@@ -1,0 +1,59 @@
+name: Deploy website and playable demo
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout public website
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Checkout private game
+        uses: actions/checkout@v7
+        with:
+          repository: The-Late-Lab/Stealthmate-Tiny
+          ref: main
+          path: private-game
+          ssh-key: ${{ secrets.STEALTHMATE_DEPLOY_KEY }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: private-game/package-lock.json
+      - name: Build production game
+        working-directory: private-game
+        env:
+          VITE_PUBLIC_BASE: /play/stealthmate/
+        run: |
+          npm ci
+          npm run build
+      - name: Assemble and audit public files
+        run: node tools/assemble-site.mjs private-game/dist _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish GitHub Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
