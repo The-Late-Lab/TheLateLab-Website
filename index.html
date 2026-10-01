@@ -28,6 +28,7 @@
       <span>Stealthmate</span>
     </a>
     <nav aria-label="Primary navigation">
+      <a href="#play">Play</a>
       <a href="#about">About</a>
       <a href="#media">Media</a>
     </nav>
@@ -50,8 +51,31 @@
       </p>
       <div class="hero-actions">
         <a class="button button-primary" href="https://store.steampowered.com/app/5141490/Stealthmate_A_chess_puzzle/">Wishlist on Steam</a>
+        <a class="button button-secondary" href="#play">Play browser demo</a>
         <a class="button button-secondary" href="#media">Watch trailer</a>
       </div>
+    </section>
+
+    <section class="demo-section" id="play" aria-labelledby="demo-title">
+      <div class="section-heading">
+        <p class="eyebrow">Play now</p>
+        <h2 id="demo-title">Your next move is a getaway.</h2>
+        <p>Ten tactical heists and Kingfall against the CPU. Play in portrait with mouse, touch, or keyboard.</p>
+      </div>
+      <div id="demo-slot" class="demo-slot">
+        <div class="demo-cover">
+          <img src="assets/stealthmate-logo.png" alt="Stealthmate" width="1024" height="512" loading="lazy">
+          <p>A small board. A clever escape.</p>
+          <p>Launch the demo below. Sound starts when you interact with the game.</p>
+        </div>
+      </div>
+      <div class="demo-controls">
+        <button class="button button-primary" id="launch-demo" type="button">Launch demo</button>
+        <button class="button button-secondary" id="fullscreen-demo" type="button" hidden>Fullscreen</button>
+        <a class="button button-secondary" href="/play/stealthmate/">Open game page</a>
+      </div>
+      <noscript><p><a href="/play/stealthmate/">Play the demo on its own page.</a></p></noscript>
+      <p class="demo-note">Progress is saved in this browser. The full adventure awaits on Steam.</p>
     </section>
 
     <section class="media-section" id="media" aria-labelledby="media-title">
@@ -132,5 +156,6 @@
     <span aria-hidden="true">•</span>
     <a href="https://store.steampowered.com/app/5141490/Stealthmate_A_chess_puzzle/">Stealthmate on Steam</a>
   </footer>
+  <script src="demo.js" defer></script>
 </body>
 </html>
