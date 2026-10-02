@@ -3,7 +3,7 @@ import path from 'node:path';
 const build = path.resolve(process.argv[2] ?? 'private-game/dist');
 const output = path.resolve(process.argv[3] ?? '_site');
 if (fs.existsSync(output)) throw Error('Output directory must be fresh');
-const allowed = /^(index\.html|favicon\.svg|assets\/[\w-]+\.(js|css)|art\/[\w.-]+\.(png|ttf|txt)|audio\/[\w-]+\.mp3)$/;
+const allowed = /^(index\.html|favicon\.svg|assets\/[\w-]+\.(js|css)|art\/(?:[\w-]+\/)*[\w.-]+\.(png|ttf|txt)|audio\/[\w-]+\.mp3)$/;
 function audit(directory, prefix = '') {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const relative = prefix + entry.name;
