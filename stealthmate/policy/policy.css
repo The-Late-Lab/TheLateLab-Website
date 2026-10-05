@@ -1,0 +1,20 @@
+.policy-document {
+  width: min(100% - 2rem, 52rem);
+  margin: 3rem auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--bg-raised);
+  overflow-wrap: anywhere;
+}
+.policy-document h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.2; }
+.policy-document h2 { margin-top: 2rem; color: var(--gold-bright); font-size: 1.25rem; }
+.policy-document p, .policy-document li { max-width: 70ch; }
+.policy-document a { color: var(--blue); text-underline-offset: .2em; }
+.policy-date { color: var(--muted); }
+.policy-page a:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 4px; }
+.policy-page footer { flex-wrap: wrap; }
+@media (max-width: 420px) {
+  .policy-page .site-header { align-items: flex-start; flex-wrap: wrap; gap: .5rem; }
+  .policy-document { margin-block: 1rem; }
+}

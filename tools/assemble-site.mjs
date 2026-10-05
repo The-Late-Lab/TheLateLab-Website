@@ -21,5 +21,8 @@ fs.mkdirSync(output, { recursive: true });
 // Explicit website allowlist: never publish the checkout or private source tree.
 for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitemap.xml', 'CNAME', '.nojekyll']) fs.copyFileSync(file, path.join(output, file));
 fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
+// Only the reviewed policy assets, not arbitrary files below the website checkout.
+fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
+for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));
 fs.cpSync(build, path.join(output, 'play/stealthmate'), { recursive: true });
 console.log('Public artifact assembled: website files and production game only.');
