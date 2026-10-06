@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           repository: The-Late-Lab/Stealthmate-Tiny
-          ref: 7567aff303a7b59e62b6328b0486fc9cc3b96e32
+          ref: d3aa566716ce072bcc3424d8a178883359085d44
           path: private-beta
           ssh-key: ${{ secrets.STEALTHMATE_DEPLOY_KEY }}
           persist-credentials: false
