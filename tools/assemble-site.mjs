@@ -25,4 +25,7 @@ fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
 fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
 for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));
 fs.cpSync(build, path.join(output, 'play/stealthmate'), { recursive: true });
+// Publish only reviewed press files, not working notes or the older draft ZIP.
+fs.mkdirSync(path.join(output, 'stealthmate/press'), { recursive: true });
+for (const file of ['index.html', 'press.css', 'next-fest-2026-en.png', 'stealthmate-press-kit.zip']) fs.copyFileSync(path.join('stealthmate/press', file), path.join(output, 'stealthmate/press', file));
 console.log('Public artifact assembled: website files and production game only.');
