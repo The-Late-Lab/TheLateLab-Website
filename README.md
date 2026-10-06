@@ -35,6 +35,17 @@ secret if this integration is retired. Never add a GitHub token or private key t
 
 ## Local verification
 
+## Unlisted micro-demo beta
+
+`https://thelatelab.com/play/stealthmatebeta/` contains the reviewed beta commit pinned in
+the deployment workflow. Production still builds the private game's `main` separately.
+The beta is not linked in navigation or the sitemap and has `noindex, nofollow` metadata.
+This is an unlisted public URL, not authentication: anyone with the URL can play it.
+Promoting a beta requires an explicit production release; deploying the website does not
+replace the normal micro-demo with beta code.
+
+## Local verification
+
 Build the private game with `VITE_PUBLIC_BASE=/play/stealthmate/`, then from this repo:
 
 ```sh

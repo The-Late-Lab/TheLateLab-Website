@@ -2,7 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 const build = path.resolve(process.argv[2] ?? 'private-game/dist');
 const output = path.resolve(process.argv[3] ?? '_site');
-if (fs.existsSync(output)) throw Error('Output directory must be fresh');
+const betaOnly = process.argv[4] === '--beta-only';
+if (!betaOnly && fs.existsSync(output)) throw Error('Output directory must be fresh');
 const allowed = /^(index\.html|favicon\.svg|assets\/[\w-]+\.(js|css)|art\/(?:[\w-]+\/)*[\w.-]+\.(png|ttf|txt)|audio\/[\w-]+\.mp3)$/;
 function audit(directory, prefix = '') {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
@@ -17,6 +18,16 @@ function audit(directory, prefix = '') {
 }
 audit(build);
 if (!fs.existsSync(path.join(build, 'index.html'))) throw Error('Game entry point missing');
+if (betaOnly) {
+  if (!fs.existsSync(path.join(output, 'play/stealthmate/index.html'))) throw Error('Assemble production first');
+  const destination = path.join(output, 'play/stealthmatebeta');
+  if (fs.existsSync(destination)) throw Error('Beta destination must be fresh');
+  fs.cpSync(build, destination, { recursive: true });
+  const entry = path.join(destination, 'index.html');
+  fs.writeFileSync(entry, fs.readFileSync(entry, 'utf8').replace('<head>', '<head>\n<meta name="robots" content="noindex, nofollow">'));
+  console.log('Unlisted beta added; production runtime unchanged.');
+  process.exit(0);
+}
 fs.mkdirSync(output, { recursive: true });
 // Explicit website allowlist: never publish the checkout or private source tree.
 for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitemap.xml', 'CNAME', '.nojekyll']) fs.copyFileSync(file, path.join(output, file));

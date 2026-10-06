@@ -39,6 +39,23 @@ jobs:
           npm run build
       - name: Assemble and audit public files
         run: node tools/assemble-site.mjs private-game/dist _site
+      - name: Checkout reviewed beta game (production stays on main)
+        uses: actions/checkout@v7
+        with:
+          repository: The-Late-Lab/Stealthmate-Tiny
+          ref: 7567aff303a7b59e62b6328b0486fc9cc3b96e32
+          path: private-beta
+          ssh-key: ${{ secrets.STEALTHMATE_DEPLOY_KEY }}
+          persist-credentials: false
+      - name: Build unlisted beta game
+        working-directory: private-beta
+        env:
+          VITE_PUBLIC_BASE: /play/stealthmatebeta/
+        run: |
+          npm ci
+          npm run build
+      - name: Audit and add unlisted beta
+        run: node tools/assemble-site.mjs private-beta/dist _site --beta-only
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
