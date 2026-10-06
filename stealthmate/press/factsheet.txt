@@ -1,7 +1,7 @@
 Stealthmate: A chess puzzle — The Late Lab
 Press contact: contact@thelatelab.com
 Chess movement. Stealth decisions.
-Stealthmate turns familiar chess movement into bite-sized stealth heists: read the patrols, find your route, and escape with your pieces.
+Solve stealth puzzles using chess movement, evade patrols, and tackle the campaign solo or in local co-op. You can also compete in real-time chess, with different maps and configurable rules, against bots, locally or online.
 Platform: Windows PC (Steam). Languages: English, French, Italian, German, Spanish, Brazilian Portuguese.
 Demo modes: single-player puzzles/async campaign, local co-op, bot/local/online Versus. Native online co-op is not included. Remote Play Together streams local modes.
 Steam Next Fest: October 19–26, 2026, 10am Pacific / noon Bogotá.
