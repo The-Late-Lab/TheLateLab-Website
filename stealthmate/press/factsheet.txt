@@ -1,4 +1,5 @@
 Stealthmate: A chess puzzle — The Late Lab
+Studio: The Late Lab is an independent studio of three siblings from Colombia.
 Press contact: contact@thelatelab.com
 Chess movement. Stealth decisions.
 Solve stealth puzzles using chess movement, evade patrols, and tackle the campaign solo or in local co-op. You can also compete in real-time chess, with different maps and configurable rules, against bots, locally or online.
@@ -8,6 +9,7 @@ Steam Next Fest: October 19–26, 2026, 10am Pacific / noon Bogotá.
 Free Steam Demo available now, publicly released October 6, 2026. Full game release date and price to be announced.
 Wishlist: https://store.steampowered.com/app/5141490/
 Play the free Demo: https://store.steampowered.com/app/5329290/
+Trailer: https://www.youtube.com/watch?v=5FUGb1wfIfI
 Browser micro-demo: https://thelatelab.com/play/stealthmate/
 Press kit: https://thelatelab.com/stealthmate/press/
-Artwork: English Next Fest promotional PNG and transparent game logo. Please credit The Late Lab.
+Artwork: English Next Fest promotional PNG, transparent game logo and six 1920x1080 gameplay screenshots (screenshots/). Please credit The Late Lab.
