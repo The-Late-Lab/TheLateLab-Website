@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /betas/
 
 Sitemap: https://thelatelab.com/sitemap.xml

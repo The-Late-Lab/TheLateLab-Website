@@ -38,6 +38,24 @@ fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.h
 fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
 for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));
 fs.cpSync(build, path.join(output, 'play/stealthmate'), { recursive: true });
+const arcade = path.join('betas', 'arcadelab');
+if (fs.existsSync(path.join(arcade, 'index.html'))) {
+  function auditArcade(directory, prefix = '') {
+    const arcadeAllowed = /^(index\.html|favicon\.svg|assets\/[\w-]+\.(js|css))$/;
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const relative = prefix + entry.name;
+      if (entry.isSymbolicLink()) throw Error('Symlink rejected: ' + relative);
+      if (entry.isDirectory()) auditArcade(path.join(directory, entry.name), relative + '/');
+      else if (!entry.isFile() || !arcadeAllowed.test(relative)) throw Error('Unexpected phone build file: ' + relative);
+    }
+  }
+  auditArcade(arcade);
+  const destination = path.join(output, 'betas', 'arcadelab');
+  fs.cpSync(arcade, destination, { recursive: true });
+  const entry = path.join(destination, 'index.html');
+  const html = fs.readFileSync(entry, 'utf8');
+  if (!html.includes('noindex')) fs.writeFileSync(entry, html.replace('<head>', '<head>\n<meta name="robots" content="noindex, nofollow">'));
+}
 // Publish only reviewed press files, not working notes or the older draft ZIP.
 fs.mkdirSync(path.join(output, 'stealthmate/press'), { recursive: true });
 for (const file of ['index.html', 'press.css', 'next-fest-2026-en.png', 'stealthmate-press-kit.zip']) fs.copyFileSync(path.join('stealthmate/press', file), path.join(output, 'stealthmate/press', file));
