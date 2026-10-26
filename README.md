@@ -64,3 +64,5 @@ The unlisted route `/betas/arithmancer/` is assembled from a compiled Unity play
 The responsive Unity template fills the available canvas area: wide desktop windows use landscape, upright phones use portrait, and rotation/narrow windows reflow without stretching. Shared-phone portrait uses stacked, opposed-player boards; solo bot practice keeps both readable from one side. The loader requires an explicit Play action for browser audio, caps render DPI at 2, and uses gzip decompression fallback for static Pages hosting. A beta URL is public to anyone with the link, not an access-controlled environment.
 
 To update, publish a new reviewed player prerelease asset and change the release tag, asset name and checksum in the manifest. Never replace an existing asset in place. Roll back by restoring the previous manifest. No navigation or sitemap link is added for this beta.
+
+Player archives version their `Build/` and `StreamingAssets/` URLs under the release tag, with matching URLs in `index.html`. This keeps cached executables and localization catalogs from crossing releases while the page URL and browser save location stay stable.
