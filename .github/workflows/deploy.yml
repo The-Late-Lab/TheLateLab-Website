@@ -56,6 +56,16 @@ jobs:
           npm run build
       - name: Audit and add unlisted beta
         run: node tools/assemble-site.mjs private-beta/dist _site --beta-only
+      - name: Validate Arithmancer beta assembly
+        run: python tools/test_assemble_arithmancer.py
+      - name: Download and assemble pinned Arithmancer beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release=$(python -c "import json; print(json.load(open('betas/arithmancer.release.json'))['release'])")
+          asset=$(python -c "import json; print(json.load(open('betas/arithmancer.release.json'))['asset'])")
+          gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/arithmancer-beta
+          python tools/assemble-arithmancer.py "/tmp/arithmancer-beta/$asset" _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

@@ -1,3 +1,5 @@
 _site/
 private-game/
 private-beta/
+
+__pycache__/

@@ -55,3 +55,12 @@ python -m http.server 4160 --directory _site
 
 Open `http://localhost:4160/` and `/play/stealthmate/`. Use a fresh output directory for each
 assembly. `_site/` and `private-game/` are ignored by Git.
+
+
+## Arithmancer WebGL beta
+
+The unlisted route `/betas/arithmancer/` is assembled from a compiled Unity player attached to the immutable GitHub prerelease named in `betas/arithmancer.release.json`. The workflow downloads that exact asset, verifies its SHA-256 and allowlists runtime files with `tools/assemble-arithmancer.py`. Game source, debug symbols, source maps, metadata and build working folders are not published or committed here.
+
+The responsive Unity template fills the available canvas area: wide desktop windows use landscape, upright phones use portrait, and rotation/narrow windows reflow without stretching. Shared-phone portrait uses stacked, opposed-player boards; solo bot practice keeps both readable from one side. The loader requires an explicit Play action for browser audio, caps render DPI at 2, and uses gzip decompression fallback for static Pages hosting. A beta URL is public to anyone with the link, not an access-controlled environment.
+
+To update, publish a new reviewed player prerelease asset and change the release tag, asset name and checksum in the manifest. Never replace an existing asset in place. Roll back by restoring the previous manifest. No navigation or sitemap link is added for this beta.
