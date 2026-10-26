@@ -56,6 +56,11 @@ if (fs.existsSync(path.join(arcade, 'index.html'))) {
   const html = fs.readFileSync(entry, 'utf8');
   if (!html.includes('noindex')) fs.writeFileSync(entry, html.replace('<head>', '<head>\n<meta name="robots" content="noindex, nofollow">'));
 }
+// GitHub Pages is case-sensitive: this TV launch route is separate from /betas/arcadelab (phone).
+const arcadeLaunch=path.join(output,'betas',process.platform==='win32'?'arcadelab-launch':'ArcadeLab');
+// Windows previews use a distinct source name; Linux Pages publishes the requested case-sensitive path.
+fs.mkdirSync(arcadeLaunch,{recursive:true});
+for(const file of ['index.html','launch.css','launch.mjs'])fs.copyFileSync(path.join('betas','arcadelab-launch',file),path.join(arcadeLaunch,file));
 // Publish only reviewed press files, not working notes or the older draft ZIP.
 fs.mkdirSync(path.join(output, 'stealthmate/press'), { recursive: true });
 for (const file of ['index.html', 'press.css', 'next-fest-2026-en.png', 'stealthmate-press-kit.zip']) fs.copyFileSync(path.join('stealthmate/press', file), path.join(output, 'stealthmate/press', file));
