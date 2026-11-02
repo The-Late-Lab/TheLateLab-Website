@@ -11,13 +11,13 @@ spec.loader.exec_module(module)
 
 
 class OpossumAssemblyTests(unittest.TestCase):
-    def attempt(self, extra=None, bad_hash=False):
+    def attempt(self, extra=None, bad_hash=False, html=None):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             site = root/'site';site.mkdir();(site/'index.html').write_text('Production')
             archive = root/'player.zip'
             with zipfile.ZipFile(archive,'w') as z:
-                z.writestr('index.html','<meta name="robots" content="noindex, nofollow"><script>matchWebGLToCanvasSize: true</script>')
+                z.writestr('index.html',html if html is not None else '<meta name="robots" content="noindex, nofollow"><script>matchWebGLToCanvasSize: true</script>')
                 z.writestr('Build/game.loader.js','loader')
                 z.writestr('Build/game.wasm.unityweb',b'compressed wasm')
                 if extra:z.writestr(extra,'invalid')
@@ -41,6 +41,20 @@ class OpossumAssemblyTests(unittest.TestCase):
 
     def test_debug_symbols_rejected(self):
         with self.assertRaisesRegex(ValueError,'Unexpected'):self.attempt('Build/game.symbols.json')
+
+    def test_bounded_manual_canvas_preserves_existing_site(self):
+        html = ('noindex, nofollow; matchWebGLToCanvasSize: false; function resizePlayer(); '
+                '1920/Math.max(1,box.width); 1080/Math.max(1,box.height); '
+                'new ResizeObserver(resizePlayer).observe(canvas); canvas.width=width;canvas.height=height;')
+        self.assertEqual(self.attempt(html=html)['files'],3)
+
+    def test_unbounded_manual_canvas_rejected(self):
+        with self.assertRaisesRegex(ValueError,'canvas configuration'):
+            self.attempt(html='noindex, nofollow; matchWebGLToCanvasSize: false')
+
+    def test_indexable_player_rejected(self):
+        with self.assertRaisesRegex(ValueError,'indexing policy'):
+            self.attempt(html='matchWebGLToCanvasSize: true')
 
 
 if __name__=='__main__':unittest.main()

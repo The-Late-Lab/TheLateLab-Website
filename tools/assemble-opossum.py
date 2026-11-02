@@ -38,7 +38,13 @@ def assemble(archive, site, manifest):
         if 'index.html' not in seen or not any(x.filename.endswith('.loader.js') for x in files):
             raise ValueError('Unity entry point or loader missing')
         html = source.read('index.html').decode('utf-8')
-        if 'noindex, nofollow' not in html or 'matchWebGLToCanvasSize: true' not in html:
+        automatic_canvas = 'matchWebGLToCanvasSize: true' in html
+        bounded_canvas = all(token in html for token in (
+            'matchWebGLToCanvasSize: false', 'function resizePlayer()',
+            '1920/Math.max(1,box.width)', '1080/Math.max(1,box.height)',
+            'new ResizeObserver(resizePlayer).observe(canvas)',
+            'canvas.width=width;canvas.height=height;'))
+        if 'noindex, nofollow' not in html or not (automatic_canvas or bounded_canvas):
             raise ValueError('Beta indexing policy or responsive canvas configuration missing')
         # Validate the complete archive before writing anything into the Pages output.
         for entry in files:
