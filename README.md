@@ -66,3 +66,18 @@ The responsive Unity template fills the available canvas area: wide desktop wind
 To update, publish a new reviewed player prerelease asset and change the release tag, asset name and checksum in the manifest. Never replace an existing asset in place. Roll back by restoring the previous manifest. No navigation or sitemap link is added for this beta.
 
 Player archives version their `Build/` and `StreamingAssets/` URLs under the release tag, with matching URLs in `index.html`. This keeps cached executables and localization catalogs from crossing releases while the page URL and browser save location stay stable.
+
+
+## Opossum Atelier class preview
+
+`/classes/opossum-atelier/` is an unlisted public Unity preview for the student
+project. `classes/opossum-atelier.release.json` pins an immutable compiled player
+prerelease asset and SHA-256. The Pages workflow validates/extracts only the player
+runtime with `tools/assemble-opossum.py`; game sources, logs and debug symbols are
+excluded. No navigation or sitemap link is added. The page starts the download
+only after Play, supports fullscreen, and recommends a desktop keyboard/mouse.
+
+Update by publishing a new reviewed archive and changing the manifest; do not
+replace published assets in place. Roll back by restoring the prior manifest.
+The preview's game source and PR description remain in the original
+`sirmatthewvs/Opossum-Project` repository on `codex/opossum-polish`.

@@ -67,6 +67,16 @@ jobs:
           asset=$(python -c "import json; print(json.load(open('betas/arithmancer.release.json'))['asset'])")
           gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/arithmancer-beta
           python tools/assemble-arithmancer.py "/tmp/arithmancer-beta/$asset" _site
+      - name: Validate Opossum preview assembly
+        run: python tools/test_assemble_opossum.py
+      - name: Download and assemble pinned Opossum class preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release=$(python -c "import json; print(json.load(open('classes/opossum-atelier.release.json'))['release'])")
+          asset=$(python -c "import json; print(json.load(open('classes/opossum-atelier.release.json'))['asset'])")
+          gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/opossum-preview
+          python tools/assemble-opossum.py "/tmp/opossum-preview/$asset" _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
