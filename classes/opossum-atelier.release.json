@@ -1,9 +1,9 @@
 {
-  "release": "opossum-web-preview-20261102",
+  "release": "opossum-web-preview-20261102-r2",
   "asset": "opossum-atelier-web.zip",
-  "sha256": "68c81cc51618a820b557bbaca4a3351540cf0f1aaea16a33f2a3ad9a0402ad25",
+  "sha256": "34b69e7d0b6b886e310726b2696d5d21db9ed2a875f8ee107851c98d2cae02f1",
   "unity": "6000.3.8f1",
   "sourceRepository": "sirmatthewvs/Opossum-Project",
-  "sourceCommit": "d586bcde490d90963df4910ecd82a0531d277ec2",
+  "sourceCommit": "26d7fbe5553192840610d673aecf832978b509bf",
   "route": "/classes/opossum-atelier/"
 }
