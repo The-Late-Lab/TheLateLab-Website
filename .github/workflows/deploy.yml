@@ -78,4 +78,3 @@ jobs:
       - name: Publish GitHub Pages artifact
         id: deployment
         uses: actions/deploy-pages@v4
-

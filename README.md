@@ -1,3 +1,7 @@
+# Current Stealthmate demo
+
+The public /play/stealthmate/ route embeds the Unity build currently published on itch.io (upload 20263932). Update the iframe in play/stealthmate/index.html when replacing the itch.io upload. The homepage uses this route. Website deployment copies this wrapper. The private Tiny build below is retained only for the unlisted beta.
+
 # Website deployment
 
 The public repository contains the marketing site and deployment tooling. The game

@@ -67,4 +67,3 @@ for(const file of ['index.html','launch.css','launch.mjs'])fs.copyFileSync(path.
 fs.mkdirSync(path.join(output, 'stealthmate/press'), { recursive: true });
 for (const file of ['index.html', 'press.css', 'next-fest-2026-en.png', 'stealthmate-press-kit.zip']) fs.copyFileSync(path.join('stealthmate/press', file), path.join(output, 'stealthmate/press', file));
 console.log('Public artifact assembled: website files and production game only.');
-
