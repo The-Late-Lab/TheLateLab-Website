@@ -35,6 +35,8 @@ for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitema
 fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
 fs.mkdirSync(path.join(output, 'stealthmate'), { recursive: true });
 fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.html'));
+fs.mkdirSync(path.join(output, 'stealthmate/beta'), { recursive: true });
+fs.copyFileSync('stealthmate/beta/index.html', path.join(output, 'stealthmate/beta/index.html'));
 // Only the reviewed policy assets, not arbitrary files below the website checkout.
 fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
 for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));
