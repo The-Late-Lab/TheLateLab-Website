@@ -16,9 +16,10 @@ function audit(directory, prefix = '') {
     }
   }
 }
-audit(build);
-if (!fs.existsSync(path.join(build, 'index.html'))) throw Error('Game entry point missing');
+
 if (betaOnly) {
+  audit(build);
+  if (!fs.existsSync(path.join(build, 'index.html'))) throw Error('Game entry point missing');
   if (!fs.existsSync(path.join(output, 'play/stealthmate/index.html'))) throw Error('Assemble production first');
   const destination = path.join(output, 'play/stealthmatebeta');
   if (fs.existsSync(destination)) throw Error('Beta destination must be fresh');
@@ -37,7 +38,8 @@ fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.h
 // Only the reviewed policy assets, not arbitrary files below the website checkout.
 fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
 for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));
-fs.cpSync(build, path.join(output, 'play/stealthmate'), { recursive: true });
+fs.mkdirSync(path.join(output, 'play/stealthmate'), { recursive: true });
+fs.copyFileSync('play/stealthmate/index.html', path.join(output, 'play/stealthmate/index.html'));
 const arcade = path.join('betas', 'arcadelab');
 if (fs.existsSync(path.join(arcade, 'index.html'))) {
   function auditArcade(directory, prefix = '') {
@@ -65,3 +67,4 @@ for(const file of ['index.html','launch.css','launch.mjs'])fs.copyFileSync(path.
 fs.mkdirSync(path.join(output, 'stealthmate/press'), { recursive: true });
 for (const file of ['index.html', 'press.css', 'next-fest-2026-en.png', 'stealthmate-press-kit.zip']) fs.copyFileSync(path.join('stealthmate/press', file), path.join(output, 'stealthmate/press', file));
 console.log('Public artifact assembled: website files and production game only.');
+
