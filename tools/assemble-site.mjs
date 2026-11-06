@@ -37,6 +37,8 @@ fs.mkdirSync(path.join(output, 'stealthmate'), { recursive: true });
 fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.html'));
 fs.mkdirSync(path.join(output, 'stealthmate/beta'), { recursive: true });
 fs.copyFileSync('stealthmate/beta/index.html', path.join(output, 'stealthmate/beta/index.html'));
+fs.mkdirSync(path.join(output, 'arithmancer/beta'), { recursive: true });
+fs.copyFileSync('arithmancer/beta/index.html', path.join(output, 'arithmancer/beta/index.html'));
 // Only the reviewed policy assets, not arbitrary files below the website checkout.
 fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
 for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));

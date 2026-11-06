@@ -7,6 +7,15 @@ import sys
 import zipfile
 
 
+def add_beta_signup(html):
+    if 'id="android-beta-footer"' in html:
+        return html
+    if '</body>' not in html:
+        raise ValueError('Player HTML body missing')
+    footer = Path(__file__).with_name('arithmancer-beta-footer.html').read_text(encoding='utf-8')
+    return html.replace('</body>', footer + '\n</body>')
+
+
 def assemble(archive, site, manifest):
     archive, site = Path(archive), Path(site)
     if hashlib.sha256(archive.read_bytes()).hexdigest() != manifest['sha256']:
@@ -44,7 +53,10 @@ def assemble(archive, site, manifest):
         for entry in files:
             output = destination.joinpath(*PurePosixPath(entry.filename).parts)
             output.parent.mkdir(parents=True, exist_ok=True)
-            output.write_bytes(source.read(entry))
+            if entry.filename == 'index.html':
+                output.write_text(add_beta_signup(html), encoding='utf-8')
+            else:
+                output.write_bytes(source.read(entry))
     return {'route': '/betas/arithmancer/', 'files': len(files), 'bytes': total, 'release': manifest['release']}
 
 

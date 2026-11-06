@@ -17,7 +17,7 @@ class ArithmancerAssemblyTests(unittest.TestCase):
             site = root/'site';site.mkdir();(site/'index.html').write_text('Production')
             archive = root/'player.zip'
             with zipfile.ZipFile(archive,'w') as z:
-                z.writestr('index.html','<meta name="robots" content="noindex, nofollow"><script>matchWebGLToCanvasSize: true</script>')
+                z.writestr('index.html','<html><body><meta name="robots" content="noindex, nofollow"><script>matchWebGLToCanvasSize: true</script></body></html>')
                 z.writestr('Build/game.loader.js','loader')
                 z.writestr('Build/game.wasm.unityweb',b'compressed wasm')
                 if extra:z.writestr(extra,'invalid')
@@ -29,6 +29,14 @@ class ArithmancerAssemblyTests(unittest.TestCase):
 
     def test_valid_player_preserves_existing_site(self):
         self.assertEqual(self.attempt()['files'],3)
+
+    def test_signup_links_are_idempotent_and_preserve_game_assets(self):
+        original = '<body><script src="Build/release/game.loader.js"></script></body>'
+        updated = module.add_beta_signup(original)
+        self.assertEqual(module.add_beta_signup(updated), updated)
+        self.assertIn('https://thelatelab.com/arithmancer/beta/', updated)
+        self.assertIn('Build/release/game.loader.js', updated)
+        self.assertIn('env(safe-area-inset-bottom', updated)
 
     def test_checksum_rejected(self):
         with self.assertRaisesRegex(ValueError,'checksum'):self.attempt(bad_hash=True)
