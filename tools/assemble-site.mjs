@@ -47,7 +47,7 @@ fs.copyFileSync('play/stealthmate/index.html', path.join(output, 'play/stealthma
 const arcade = path.join('betas', 'arcadelab');
 if (fs.existsSync(path.join(arcade, 'index.html'))) {
   function auditArcade(directory, prefix = '') {
-    const arcadeAllowed = /^(index\.html|favicon\.svg|assets\/[\w-]+\.(js|css))$/;
+    const arcadeAllowed = /^(index\.html|wand\.html|favicon\.svg|assets\/[\w-]+\.(js|css))$/;
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
       const relative = prefix + entry.name;
       if (entry.isSymbolicLink()) throw Error('Symlink rejected: ' + relative);
