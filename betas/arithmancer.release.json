@@ -1,7 +1,7 @@
 {
-  "release": "arithmancer-web-beta-20261109-048b079",
+  "release": "arithmancer-web-beta-20261109-462c3f7",
   "asset": "arithmancer-web-beta.zip",
-  "sha256": "f55724c056186319982e5e004cd444ac33ebaa1040965538e4383ce6cafb6a04",
+  "sha256": "80b3e2b0d063a4594029558557d3a73b3dfd748e42086388a5db3f7443652975",
   "unity": "6000.6.7f1",
   "studioPackages": "67e36898d41d22545ab1ccf66e7bc70c1304f89f"
 }
