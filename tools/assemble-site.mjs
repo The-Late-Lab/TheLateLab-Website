@@ -42,6 +42,9 @@ fs.copyFileSync('arithmancer/beta/index.html', path.join(output, 'arithmancer/be
 // Only the reviewed policy assets, not arbitrary files below the website checkout.
 fs.mkdirSync(path.join(output, 'stealthmate/policy'), { recursive: true });
 for (const file of ['index.html', 'policy.css']) fs.copyFileSync(path.join('stealthmate/policy', file), path.join(output, 'stealthmate/policy', file));
+// TheLateLab.Dev (internal Android test app): only its reviewed privacy policy.
+fs.mkdirSync(path.join(output, 'dev/policy'), { recursive: true });
+fs.copyFileSync('dev/policy/index.html', path.join(output, 'dev/policy/index.html'));
 fs.mkdirSync(path.join(output, 'play/stealthmate'), { recursive: true });
 fs.copyFileSync('play/stealthmate/index.html', path.join(output, 'play/stealthmate/index.html'));
 const arcade = path.join('betas', 'arcadelab');
