@@ -60,6 +60,14 @@ jobs:
           asset=$(python -c "import json; print(json.load(open('classes/opossum-atelier.release.json'))['asset'])")
           gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/opossum-preview
           python tools/assemble-opossum.py "/tmp/opossum-preview/$asset" _site
+      - name: Download and assemble pinned Stealthmate beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release=$(python -c "import json; print(json.load(open('betas/stealthmate.release.json'))['release'])")
+          asset=$(python -c "import json; print(json.load(open('betas/stealthmate.release.json'))['asset'])")
+          gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/stealthmate-beta
+          python tools/assemble-stealthmate.py "/tmp/stealthmate-beta/$asset" _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

@@ -7,13 +7,13 @@ import sys
 import zipfile
 
 
-def assemble(archive, site, manifest):
+def assemble(archive, site, manifest, route="classes/opossum-atelier", require_canvas_markers=True):
     archive, site = Path(archive), Path(site)
     if hashlib.sha256(archive.read_bytes()).hexdigest() != manifest['sha256']:
         raise ValueError('Opossum archive checksum does not match the reviewed release')
     if not (site / 'index.html').is_file():
         raise ValueError('Assemble the main site first')
-    destination = site / 'classes/opossum-atelier'
+    destination = site / route
     if destination.exists():
         raise ValueError('Opossum destination must be fresh')
     with zipfile.ZipFile(archive) as source:
@@ -44,14 +44,14 @@ def assemble(archive, site, manifest):
             '1920/Math.max(1,box.width)', '1080/Math.max(1,box.height)',
             'new ResizeObserver(resizePlayer).observe(canvas)',
             'canvas.width=width;canvas.height=height;'))
-        if 'noindex, nofollow' not in html or not (automatic_canvas or bounded_canvas):
+        if 'noindex, nofollow' not in html or (require_canvas_markers and not (automatic_canvas or bounded_canvas)):
             raise ValueError('Beta indexing policy or responsive canvas configuration missing')
         # Validate the complete archive before writing anything into the Pages output.
         for entry in files:
             output = destination.joinpath(*PurePosixPath(entry.filename).parts)
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_bytes(source.read(entry))
-    return {'route': '/classes/opossum-atelier/', 'files': len(files), 'bytes': total, 'release': manifest['release']}
+    return {'route': f'/{route}/', 'files': len(files), 'bytes': total, 'release': manifest['release']}
 
 
 if __name__ == '__main__':
