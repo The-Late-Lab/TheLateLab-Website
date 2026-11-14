@@ -68,6 +68,14 @@ jobs:
           asset=$(python -c "import json; print(json.load(open('betas/stealthmate.release.json'))['asset'])")
           gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/stealthmate-beta
           python tools/assemble-stealthmate.py "/tmp/stealthmate-beta/$asset" _site
+      - name: Download and assemble pinned The Last Reading beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release=$(python -c "import json; print(json.load(open('betas/last-reading.release.json'))['release'])")
+          asset=$(python -c "import json; print(json.load(open('betas/last-reading.release.json'))['asset'])")
+          gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/last-reading-beta
+          python tools/assemble-last-reading.py "/tmp/last-reading-beta/$asset" _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

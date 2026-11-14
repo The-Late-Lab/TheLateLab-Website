@@ -7,7 +7,7 @@ import sys
 import zipfile
 
 
-def assemble(archive, site, manifest, route="classes/opossum-atelier", require_canvas_markers=True):
+def assemble(archive, site, manifest, route="classes/opossum-atelier", require_canvas_markers=True, extra_paths=None):
     archive, site = Path(archive), Path(site)
     if hashlib.sha256(archive.read_bytes()).hexdigest() != manifest['sha256']:
         raise ValueError('Opossum archive checksum does not match the reviewed release')
@@ -29,6 +29,7 @@ def assemble(archive, site, manifest, route="classes/opossum-atelier", require_c
                 raise ValueError('Duplicate archive path: ' + name)
             seen.add(name.casefold())
             allowed = name == 'index.html' or (path.parts[0] in ('Build', 'StreamingAssets') and path.suffix.lower() in ('.js', '.unityweb', '.wasm', '.data', '.bundle', '.json', '.hash', '.bin'))
+            allowed = allowed or (extra_paths is not None and extra_paths.fullmatch(name))
             if not allowed or any(x in name.lower() for x in ('symbols', 'provenance', 'sourcemap', 'donotship')):
                 raise ValueError('Unexpected player file: ' + name)
             total += entry.file_size
