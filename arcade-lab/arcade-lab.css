@@ -37,3 +37,8 @@ article { padding: 1.25rem; border: 1px solid #444843; border-radius: .65rem; ba
 
 .preview-page { padding-block: clamp(2rem, 6vw, 4rem); }
 .preview-page .video { margin-top: 1.25rem; }
+
+.preview-art { display: grid; grid-template-columns: 1fr minmax(0, 35%); gap: 1rem; align-items: start; margin-top: 2rem; }
+.preview-art img, .square-art img { display: block; width: 100%; height: auto; border-radius: .7rem; }
+.square-art { display: block; width: min(100%, 340px); margin: 0 auto 2rem; }
+@media (max-width: 710px) { .preview-art { grid-template-columns: 1fr; } }

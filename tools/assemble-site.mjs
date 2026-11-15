@@ -35,7 +35,7 @@ for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitema
 fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
 const arcadeLabPage = path.join(output, 'arcade-lab');
 fs.mkdirSync(path.join(arcadeLabPage, 'preview'), { recursive: true });
-for (const file of ['arcade-lab.css', 'arcade-lab.js', 'cover.jpg']) fs.copyFileSync(path.join('arcade-lab', file), path.join(arcadeLabPage, file));
+for (const file of ['arcade-lab.css', 'arcade-lab.js', 'key-visual-wide.png', 'key-visual-square.png']) fs.copyFileSync(path.join('arcade-lab', file), path.join(arcadeLabPage, file));
 // Update this manifest when replacing the video on the project page and reviewer permalink.
 const { youtubeVideoId } = JSON.parse(fs.readFileSync('arcade-lab/video.json', 'utf8'));
 if (typeof youtubeVideoId !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(youtubeVideoId)) throw Error('Invalid Arcade Lab YouTube video ID');
