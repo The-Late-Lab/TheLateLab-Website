@@ -33,6 +33,8 @@ fs.mkdirSync(output, { recursive: true });
 // Explicit website allowlist: never publish the checkout or private source tree.
 for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitemap.xml', 'CNAME', '.nojekyll']) fs.copyFileSync(file, path.join(output, file));
 fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
+fs.mkdirSync(path.join(output, 'arcade-lab'), { recursive: true });
+for (const file of ['index.html', 'arcade-lab.css', 'arcade-lab.js', 'cover.jpg']) fs.copyFileSync(path.join('arcade-lab', file), path.join(output, 'arcade-lab', file));
 fs.mkdirSync(path.join(output, 'stealthmate'), { recursive: true });
 fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.html'));
 fs.mkdirSync(path.join(output, 'stealthmate/beta'), { recursive: true });
