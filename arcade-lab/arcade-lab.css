@@ -34,3 +34,6 @@ article { padding: 1.25rem; border: 1px solid #444843; border-radius: .65rem; ba
   .wrap { width: calc(100% - 2rem); }
   .hero, .games { grid-template-columns: 1fr; }
 }
+
+.preview-page { padding-block: clamp(2rem, 6vw, 4rem); }
+.preview-page .video { margin-top: 1.25rem; }

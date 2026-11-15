@@ -33,8 +33,16 @@ fs.mkdirSync(output, { recursive: true });
 // Explicit website allowlist: never publish the checkout or private source tree.
 for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitemap.xml', 'CNAME', '.nojekyll']) fs.copyFileSync(file, path.join(output, file));
 fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
-fs.mkdirSync(path.join(output, 'arcade-lab'), { recursive: true });
-for (const file of ['index.html', 'arcade-lab.css', 'arcade-lab.js', 'cover.jpg']) fs.copyFileSync(path.join('arcade-lab', file), path.join(output, 'arcade-lab', file));
+const arcadeLabPage = path.join(output, 'arcade-lab');
+fs.mkdirSync(path.join(arcadeLabPage, 'preview'), { recursive: true });
+for (const file of ['arcade-lab.css', 'arcade-lab.js', 'cover.jpg']) fs.copyFileSync(path.join('arcade-lab', file), path.join(arcadeLabPage, file));
+// Update this manifest when replacing the video on the project page and reviewer permalink.
+const { youtubeVideoId } = JSON.parse(fs.readFileSync('arcade-lab/video.json', 'utf8'));
+if (typeof youtubeVideoId !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(youtubeVideoId)) throw Error('Invalid Arcade Lab YouTube video ID');
+for (const page of ['index.html', 'preview/index.html']) {
+  const template = fs.readFileSync(path.join('arcade-lab', page), 'utf8');
+  fs.writeFileSync(path.join(arcadeLabPage, page), template.replaceAll('__ARCADE_LAB_VIDEO_ID__', youtubeVideoId));
+}
 fs.mkdirSync(path.join(output, 'stealthmate'), { recursive: true });
 fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.html'));
 fs.mkdirSync(path.join(output, 'stealthmate/beta'), { recursive: true });
