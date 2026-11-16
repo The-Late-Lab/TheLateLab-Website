@@ -68,6 +68,14 @@ jobs:
           asset=$(python -c "import json; print(json.load(open('betas/stealthmate.release.json'))['asset'])")
           gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/stealthmate-beta
           python tools/assemble-stealthmate.py "/tmp/stealthmate-beta/$asset" _site
+      - name: Download and assemble pinned Stealthmate paper beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          release=$(python -c "import json; print(json.load(open('betas/stealthmate_paper.release.json'))['release'])")
+          asset=$(python -c "import json; print(json.load(open('betas/stealthmate_paper.release.json'))['asset'])")
+          gh release download "$release" --repo "$GITHUB_REPOSITORY" --pattern "$asset" --dir /tmp/stealthmate-paper-beta
+          python tools/assemble-stealthmate.py "/tmp/stealthmate-paper-beta/$asset" _site --paper
       - name: Download and assemble pinned The Last Reading beta
         env:
           GH_TOKEN: ${{ github.token }}

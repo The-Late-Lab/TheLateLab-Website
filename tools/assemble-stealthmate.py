@@ -7,15 +7,18 @@ import re
 
 
 if __name__ == "__main__":
-    manifest = json.loads(Path("betas/stealthmate.release.json").read_text())
+    paper = len(sys.argv) > 3 and sys.argv[3] == "--paper"
+    route = "betas/stealthmate_paper" if paper else "betas/stealthmate"
+    manifest_path = Path(route + ".release.json")
+    manifest = json.loads(manifest_path.read_text())
     release = manifest["release"]
     if not re.fullmatch(r"stealthmate-beta-[a-z0-9-]+", release):
         raise ValueError("Invalid Stealthmate release tag")
     assemble = import_module("assemble-opossum").assemble
     site = Path(sys.argv[2])
-    result = assemble(sys.argv[1], site, manifest, route="betas/stealthmate",
+    result = assemble(sys.argv[1], site, manifest, route=route,
                       require_canvas_markers=False)
-    destination = site / "betas/stealthmate"
+    destination = site / route
     versioned = destination / release
     versioned.mkdir()
     for directory in ("Build", "StreamingAssets"):
