@@ -23,4 +23,13 @@ if __name__ == "__main__":
     versioned.mkdir()
     for directory in ("Build", "StreamingAssets"):
         (destination / directory).rename(versioned / directory)
+    entry = destination / 'index.html'
+    html = entry.read_text(encoding='utf-8')
+    for directory in ("Build", "StreamingAssets"):
+        # Unity's fresh template uses relative directory literals. Older reviewed
+        # archives may already contain this release's immutable prefix.
+        html = html.replace('"' + directory + '"', '"' + release + '/' + directory + '"')
+        if release + '/' + directory not in html:
+            raise ValueError('Missing versioned Unity asset URL: ' + directory)
+    entry.write_text(html, encoding='utf-8')
     print(json.dumps(result))
