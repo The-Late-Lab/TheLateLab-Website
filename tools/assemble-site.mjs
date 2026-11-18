@@ -35,6 +35,10 @@ for (const file of ['index.html', 'styles.css', 'demo.js', 'robots.txt', 'sitema
 fs.cpSync('assets', path.join(output, 'assets'), { recursive: true });
 const arcadeLabPage = path.join(output, 'arcade-lab');
 fs.mkdirSync(path.join(arcadeLabPage, 'preview'), { recursive: true });
+// Keep the early TIGS preview unlisted until the team explicitly launches it.
+// Crawlers must be allowed to read noindex; do not block these pages in robots.txt.
+if (/arcade-lab/i.test(fs.readFileSync('sitemap.xml', 'utf8'))) throw Error('Unlisted Arcade Lab pages must stay out of the sitemap');
+if (/\b(?:href|src)\s*=\s*["'][^"']*\/arcade-lab(?:[/?#"'])/i.test(fs.readFileSync('index.html', 'utf8'))) throw Error('Unlisted Arcade Lab pages must stay off the public homepage');
 for (const file of ['arcade-lab.css', 'arcade-lab.js', 'key-visual-wide.png', 'key-visual-square.png']) fs.copyFileSync(path.join('arcade-lab', file), path.join(arcadeLabPage, file));
 // Update this manifest when replacing the video on the project page and reviewer permalink.
 const { youtubeVideoIds } = JSON.parse(fs.readFileSync('arcade-lab/video.json', 'utf8'));
@@ -43,6 +47,7 @@ for (const language of ['ja', 'en', 'clean']) {
 }
 for (const page of ['index.html', 'preview/index.html']) {
   const template = fs.readFileSync(path.join('arcade-lab', page), 'utf8');
+  if (!template.includes('<meta name="robots" content="noindex, nofollow, noimageindex, nosnippet">')) throw Error('Missing Arcade Lab search exclusion: ' + page);
   const html = template.replaceAll('__ARCADE_LAB_VIDEO_JA__', youtubeVideoIds.ja)
     .replaceAll('__ARCADE_LAB_VIDEO_EN__', youtubeVideoIds.en)
     .replaceAll('__ARCADE_LAB_VIDEO_CLEAN__', youtubeVideoIds.clean);
