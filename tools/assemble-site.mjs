@@ -37,11 +37,17 @@ const arcadeLabPage = path.join(output, 'arcade-lab');
 fs.mkdirSync(path.join(arcadeLabPage, 'preview'), { recursive: true });
 for (const file of ['arcade-lab.css', 'arcade-lab.js', 'key-visual-wide.png', 'key-visual-square.png']) fs.copyFileSync(path.join('arcade-lab', file), path.join(arcadeLabPage, file));
 // Update this manifest when replacing the video on the project page and reviewer permalink.
-const { youtubeVideoId } = JSON.parse(fs.readFileSync('arcade-lab/video.json', 'utf8'));
-if (typeof youtubeVideoId !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(youtubeVideoId)) throw Error('Invalid Arcade Lab YouTube video ID');
+const { youtubeVideoIds } = JSON.parse(fs.readFileSync('arcade-lab/video.json', 'utf8'));
+for (const language of ['ja', 'en', 'clean']) {
+  if (typeof youtubeVideoIds?.[language] !== 'string' || !/^[A-Za-z0-9_-]{11}$/.test(youtubeVideoIds[language])) throw Error('Invalid Arcade Lab YouTube video ID: ' + language);
+}
 for (const page of ['index.html', 'preview/index.html']) {
   const template = fs.readFileSync(path.join('arcade-lab', page), 'utf8');
-  fs.writeFileSync(path.join(arcadeLabPage, page), template.replaceAll('__ARCADE_LAB_VIDEO_ID__', youtubeVideoId));
+  const html = template.replaceAll('__ARCADE_LAB_VIDEO_JA__', youtubeVideoIds.ja)
+    .replaceAll('__ARCADE_LAB_VIDEO_EN__', youtubeVideoIds.en)
+    .replaceAll('__ARCADE_LAB_VIDEO_CLEAN__', youtubeVideoIds.clean);
+  if (html.includes('__ARCADE_LAB_VIDEO_')) throw Error('Unresolved Arcade Lab video placeholder');
+  fs.writeFileSync(path.join(arcadeLabPage, page), html);
 }
 fs.mkdirSync(path.join(output, 'stealthmate'), { recursive: true });
 fs.copyFileSync('stealthmate/index.html', path.join(output, 'stealthmate/index.html'));
