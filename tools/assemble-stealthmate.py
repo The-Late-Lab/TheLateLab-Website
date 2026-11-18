@@ -25,6 +25,21 @@ if __name__ == "__main__":
         (destination / directory).rename(versioned / directory)
     entry = destination / 'index.html'
     html = entry.read_text(encoding='utf-8')
+    if paper:
+        footer_css = '''<style>
+        a[href^="https://store.steampowered.com/app/5141490/"],
+        a[href="https://thelatelab.com/stealthmate/beta/"] {
+            display: flex; align-items: center; justify-content: center;
+            height: 44px !important; background: #f7f1df !important;
+            color: #344321 !important; border-color: #8c996e !important;
+        }
+        a[href^="https://store.steampowered.com/app/5141490/"]:focus-visible,
+        a[href="https://thelatelab.com/stealthmate/beta/"]:focus-visible {
+            outline: 2px solid #344321; outline-offset: -4px;
+        }
+        </style>'''
+        html = html.replace('viewport.height - 34', 'viewport.height - 44')
+        html = html.replace('</head>', footer_css + '\n</head>', 1)
     for directory in ("Build", "StreamingAssets"):
         # Unity's fresh template uses relative directory literals. Older reviewed
         # archives may already contain this release's immutable prefix.
