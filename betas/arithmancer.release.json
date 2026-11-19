@@ -1,7 +1,9 @@
 {
-  "release": "arithmancer-web-beta-20261109-462c3f7",
+  "release": "arithmancer-botanical-20261119-8272c4d",
   "asset": "arithmancer-web-beta.zip",
-  "sha256": "80b3e2b0d063a4594029558557d3a73b3dfd748e42086388a5db3f7443652975",
+  "sha256": "228ebf004bfa236bd98042b47e2b9938cbc5764ec6d23eb3b171cbaaafdede74",
   "unity": "6000.6.7f1",
+  "sourceCommit": "8272c4d96fabe221a8d63b1a6cc33f8d8d37c5b0",
+  "presentation": "botanical-light",
   "studioPackages": "67e36898d41d22545ab1ccf66e7bc70c1304f89f"
 }
